@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: laravel-smoketest-app:latest
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+
+  database:
+    image: docker.io/library/mariadb:11.8
+    environment:
+      - MARIADB_USER=laravel
+      - MARIADB_PASSWORD=secret
+      - MARIADB_ROOT_PASSWORD=secret
+      - MARIADB_DATABASE=laravel_smoketest
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - database:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  database:
