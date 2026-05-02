@@ -77,12 +77,12 @@ jobs:
 
       - name: Create and push multi-platform manifest
         run: |
-          SHA="${GITHUB_SHA}"
+          SHORT_SHA="sha-${GITHUB_SHA:0:7}"
 
           docker buildx imagetools create \
-            --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHA}" \
-            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHA}-amd64" \
-            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHA}-arm64"
+            --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}" \
+            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}-amd64" \
+            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}-arm64"
 
           if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
             docker buildx imagetools create \
