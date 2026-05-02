@@ -78,15 +78,24 @@ jobs:
       - name: Create and push multi-platform manifest
         run: |
           SHORT_SHA="sha-${GITHUB_SHA:0:7}"
+          IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
 
           docker buildx imagetools create \
-            --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}" \
-            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}-amd64" \
-            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}-arm64"
+            --tag "${IMAGE}:${SHORT_SHA}" \
+            "${IMAGE}:${SHORT_SHA}-amd64" \
+            "${IMAGE}:${SHORT_SHA}-arm64"
 
           if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
             docker buildx imagetools create \
-              --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" \
-              "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-amd64" \
-              "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-arm64"
+              --tag "${IMAGE}:latest" \
+              "${IMAGE}:latest-amd64" \
+              "${IMAGE}:latest-arm64"
+          fi
+
+          docker buildx imagetools rm "${IMAGE}:${SHORT_SHA}-amd64"
+          docker buildx imagetools rm "${IMAGE}:${SHORT_SHA}-arm64"
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            docker buildx imagetools rm "${IMAGE}:latest-amd64"
+            docker buildx imagetools rm "${IMAGE}:latest-arm64"
           fi
