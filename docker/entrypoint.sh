@@ -1,7 +1,9 @@
 #!/bin/sh
 
-# Run migrations if needed
-php artisan migrate --force
+if [ "${DISABLE_MIGRATIONS:-false}" != "false" ]; then
+    # Run migrations if needed
+    php artisan migrate --force
+fi
 
 # Start PHP-FPM
 php-fpm -D
