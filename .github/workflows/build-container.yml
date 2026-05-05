@@ -80,15 +80,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get short commit hash
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          echo "SHORT_SHA=${SHORT_SHA}" >> $GITHUB_ENV
+
       - name: Create and push multi-platform manifest
         run: |
-          SHORT_SHA="sha-${GITHUB_SHA:0:7}"
+          IMAGE_PREFIX="sha-${{ env.SHORT_SHA }}"
           IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
 
           docker buildx imagetools create \
-            --tag "${IMAGE}:${SHORT_SHA}" \
-            "${IMAGE}:${SHORT_SHA}-amd64" \
-            "${IMAGE}:${SHORT_SHA}-arm64"
+            --tag "${IMAGE}:${IMAGE_PREFIX}" \
+            "${IMAGE}:${IMAGE_PREFIX}-amd64" \
+            "${IMAGE}:${IMAGE_PREFIX}-arm64"
 
           if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
             docker buildx imagetools create \
@@ -96,3 +101,8 @@ jobs:
               "${IMAGE}:latest-amd64" \
               "${IMAGE}:latest-arm64"
           fi
+
+      - uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          exclude-tags: latest
+          delete-tags: latest-amd64,latest-arm64,${{ env.SHORT_SHA }}-amd64,${{ env.SHORT_SHA }}-arm64
