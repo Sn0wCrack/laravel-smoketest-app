@@ -13,6 +13,32 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  schedule:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: laravel-smoketest-app:latest
+    entrypoint: ["php", "artisan", "schedule:work"]
+    env_file:
+        - .env
+    depends_on:
+      database:
+        condition: service_started
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: laravel-smoketest-app:latest
+    entrypoint: ["php", "artisan", "queue:work"]
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_started
+    restart: unless-stopped
+
   database:
     image: docker.io/library/mariadb:11.8
     environment:

@@ -16,6 +16,8 @@ env:
 
 jobs:
   build:
+    name: Build Container
+
     strategy:
       matrix:
         include:
@@ -23,6 +25,7 @@ jobs:
             runner: ubuntu-latest
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
+
     runs-on: ${{ matrix.runner }}
 
     steps:
@@ -61,6 +64,8 @@ jobs:
           cache-to: type=gha,mode=max
 
   create-manifest:
+    name: Update Container Manifest
+
     needs: [build]
     runs-on: ubuntu-latest
 
