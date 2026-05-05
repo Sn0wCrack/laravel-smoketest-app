@@ -24,7 +24,9 @@ jobs:
       - uses: dataaxiom/ghcr-cleanup-action@v1
         with:
           exclude-tags: latest
+          delete-tags: '^.*-(amd64|arm64)$'
           older-than: 7 days
           keep-n-tagged: 3
+          use-regex: true
           delete-untagged: true
           delete-partial-images: true
