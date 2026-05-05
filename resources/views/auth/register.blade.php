@@ -13,35 +13,50 @@
                 <div>
                     <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                     <div class="mt-2">
-                        <input id="name" name="name" type="text" required value="{{ old('name') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="name" name="name" type="text" required value="{{ old('name') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('name') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('name') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('name')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div>
                     <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
                     <div class="mt-2">
-                        <input id="username" name="username" type="text" required value="{{ old('username') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="username" name="username" type="text" required value="{{ old('username') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('username') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('username') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('username')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div class="mt-2">
-                        <input id="email" name="email" type="email" required value="{{ old('email') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="email" name="email" type="email" required value="{{ old('email') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('email') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('email') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div>
                     <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                     <div class="mt-2">
-                        <input id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('password') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('password') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div>
                     <label for="password_confirmation" class="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
                     <div class="mt-2">
-                        <input id="password_confirmation" name="password_confirmation" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="password_confirmation" name="password_confirmation" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('password_confirmation') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('password_confirmation') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('password_confirmation')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

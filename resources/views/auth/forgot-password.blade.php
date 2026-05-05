@@ -14,7 +14,10 @@
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div class="mt-2">
-                        <input id="email" name="email" type="email" required value="{{ old('email') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="email" name="email" type="email" required value="{{ old('email') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('email') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('email') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

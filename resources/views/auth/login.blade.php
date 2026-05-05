@@ -13,7 +13,10 @@
                 <div>
                     <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
                     <div class="mt-2">
-                        <input id="username" name="username" type="text" required autofocus value="{{ old('username') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="username" name="username" type="text" required autofocus value="{{ old('username') }}" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('username') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('username') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('username')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
@@ -25,7 +28,10 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        <input id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input id="password" name="password" type="password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset {{ $errors->has('password') ? 'ring-red-500' : 'ring-gray-300' }} placeholder:text-gray-400 focus:ring-2 focus:ring-inset {{ $errors->has('password') ? 'focus:ring-red-500' : 'focus:ring-indigo-600' }} sm:text-sm sm:leading-6">
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

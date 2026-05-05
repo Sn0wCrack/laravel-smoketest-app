@@ -13,7 +13,10 @@
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6">
                                         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                                        <input type="text" name="title" id="title" value="{{ old('title') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <input type="text" name="title" id="title" value="{{ old('title') }}" required class="mt-1 block w-full rounded-md {{ $errors->has('title') ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500' }} shadow-sm sm:text-sm">
+                                        @error('title')
+                                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="col-span-6">
@@ -22,7 +25,10 @@
                                             <button type="button" @click="markdownPreview = !markdownPreview" class="text-sm text-indigo-600 hover:text-indigo-500" x-text="markdownPreview ? 'Edit' : 'Preview'"></button>
                                         </div>
                                         <div x-show="!markdownPreview" class="mt-1">
-                                            <textarea name="body" id="body" x-model="body" rows="12" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">{{ old('body') }}</textarea>
+                                            <textarea name="body" id="body" x-model="body" rows="12" required class="block w-full rounded-md {{ $errors->has('body') ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500' }} shadow-sm sm:text-sm">{{ old('body') }}</textarea>
+                                            @error('body')
+                                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div x-show="markdownPreview" class="mt-1 rounded-md border border-gray-300 p-4 bg-gray-50 min-h-[300px] prose prose-sm max-w-none" x-html="renderMarkdown(body)"></div>
                                         <p class="mt-1 text-sm text-gray-500">Markdown formatting is supported.</p>
