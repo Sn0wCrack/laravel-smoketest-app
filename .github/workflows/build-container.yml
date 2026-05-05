@@ -105,4 +105,5 @@ jobs:
       - uses: dataaxiom/ghcr-cleanup-action@v1
         with:
           exclude-tags: latest
-          delete-tags: latest-amd64,latest-arm64,${{ env.SHORT_SHA }}-amd64,${{ env.SHORT_SHA }}-arm64
+          delete-tags: '^.*-(amd64|arm64)$'
+          use-regex: true
