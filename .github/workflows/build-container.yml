@@ -96,11 +96,3 @@ jobs:
               "${IMAGE}:latest-amd64" \
               "${IMAGE}:latest-arm64"
           fi
-
-          docker buildx imagetools rm "${IMAGE}:${SHORT_SHA}-amd64"
-          docker buildx imagetools rm "${IMAGE}:${SHORT_SHA}-arm64"
-
-          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
-            docker buildx imagetools rm "${IMAGE}:latest-amd64"
-            docker buildx imagetools rm "${IMAGE}:latest-arm64"
-          fi

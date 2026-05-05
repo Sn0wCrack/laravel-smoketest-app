@@ -1,0 +1,30 @@
+name: Cleanup Containers
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_run:
+    workflows: ['Build and Push Container Image']
+    types:
+      - completed
+  workflow_dispatch:
+
+
+jobs:
+  cleanup:
+    name: Cleanup Containers
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          exclude-tags: latest
+          older-than: 7 days
+          keep-n-tagged: 3
+          delete-untagged: true
+          delete-partial-images: true
