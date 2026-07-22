@@ -23,7 +23,7 @@ services:
         - .env
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   worker:
@@ -36,11 +36,11 @@ services:
       - .env
     depends_on:
       database:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   database:
-    image: docker.io/library/mariadb:11.8
+    image: docker.io/library/mariadb:12.3
     environment:
       - MARIADB_USER=laravel
       - MARIADB_PASSWORD=secret

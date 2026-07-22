@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if [ "${DISABLE_MIGRATIONS:-false}" != "false" ]; then
+if [[ "${DISABLE_MIGRATIONS:-0}" != "1" ]]; then
     # Run migrations if needed
     php artisan migrate --force
 fi
