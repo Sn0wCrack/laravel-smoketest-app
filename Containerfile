@@ -62,9 +62,9 @@ RUN apt-get update \
 COPY --from=build --chown=www-data:www-data /var/www/html /var/www/html
 
 # Copy Nginx and PHP configuration configuration
-COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY docker/nginx/default.conf /etc/nginx/sites-available/default
-COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY container/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY container/nginx/default.conf /etc/nginx/sites-available/default
+COPY container/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Ensure PHP-FPM socket directory exists
 RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
