@@ -38,7 +38,7 @@ COPY --from=docker.io/library/composer:2.10.2 /usr/bin/composer /usr/bin/compose
 FROM dependencies as build
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Copy application code
 COPY . .
@@ -46,20 +46,20 @@ COPY . .
 # Install PHP dependencies, Node Dependencies, Build and Set Permissions
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist && \
     npm ci --ignore-scripts && npm run build && \
-    chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
-    chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
+    chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
+    chmod -R 755 /app/storage /app/bootstrap/cache
 
 # Stage 3: Production stage with Nginx
 FROM dependencies AS production
 
 # Install Nginx
-RUN apt-get update \
+RUN apt-get update -y \
     && apt-get install -y nginx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built application from build stage
-COPY --from=build --chown=www-data:www-data /var/www/html /var/www/html
+COPY --from=build --chown=www-data:www-data /app /app
 
 # Copy Nginx and PHP configuration configuration
 COPY container/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
@@ -72,7 +72,7 @@ RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
     && chmod +x /usr/local/bin/entrypoint.sh
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Expose port 80
 EXPOSE 80
