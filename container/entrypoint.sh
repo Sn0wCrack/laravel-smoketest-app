@@ -5,6 +5,10 @@ if [[ "${DISABLE_MIGRATIONS:-0}" != "1" ]]; then
     php artisan migrate --force
 fi
 
+if [[ "${DISABLE_OPTIMIZE:-0}" != "1" ]]; then
+    php artisan optimize
+fi
+
 # Start PHP-FPM
 php-fpm -D
 
