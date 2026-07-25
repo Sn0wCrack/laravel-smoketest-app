@@ -46,6 +46,7 @@ COPY . .
 # Install PHP dependencies, Node Dependencies, Build and Set Permissions
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist && \
     npm ci --ignore-scripts && npm run build && \
+    mkdir -p /app/storage/app/private /app/storage/app/public /app/storage/framework/cache/data /app/storage/framework/sessions /app/storage/framework/testing /app/storage/framework/views && \
     chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
     chmod -R 755 /app/storage /app/bootstrap/cache
 
