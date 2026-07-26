@@ -64,14 +64,4 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-        <script>
-            function renderMarkdown(text) {
-                if (!text) return '<p class="text-gray-400 italic">Nothing to preview</p>';
-                return marked.parse(text);
-            }
-        </script>
-    @endpush
 </x-layouts.app>
