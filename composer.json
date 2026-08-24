@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "laravel/framework": "^13.25.0",
+        "laravel/framework": "^13.26.1",
         "laravel/tinker": "^3.0.2"
     },
     "require-dev": {
@@ -18,7 +18,7 @@
         "laravel/pail": "^1.2.7",
         "laravel/pao": "^1.1.4",
         "laravel/pint": "^1.30.5",
-        "mockery/mockery": "^1.6.13",
+        "mockery/mockery": "^1.6.15",
         "nunomaduro/collision": "^8.9.5",
         "pestphp/pest": "^4.7.8",
         "pestphp/pest-plugin-laravel": "^4.1"
